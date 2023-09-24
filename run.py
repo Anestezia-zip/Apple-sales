@@ -34,6 +34,18 @@ def get_weekly_sales():
     print(f"A day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$")
     print(f"A day with minimum sales {min_sales_day[0]}, sales: {min_sales_day[1]}$")
 
+def calculate_profit():
+    """ 
+    'Profit' - difference between sales and cost of sales 
+    """
+    profit = []
+    for row in data:
+        profit.append(int(row[1]) - int(row[3]))
+    profit.insert(0, 'Profit')
+   
+    return profit
+
+
 def main():
     """ Run all program functions """
     get_weekly_sales()
