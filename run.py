@@ -28,6 +28,11 @@ def get_weekly_sales():
     average_receipt = total_sales / 7
     print(f"The average check: {round(average_receipt)}$")
 
+    # Maximum and minimum sales: 
+    max_sales_day = max(data,  key=lambda x: int(x[1]))
+    min_sales_day = min(data,  key=lambda x: int(x[1]))
+    print(f"A day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$")
+    print(f"A day with minimum sales {min_sales_day[0]}, sales: {min_sales_day[1]}$")
 
 def main():
     """ Run all program functions """
