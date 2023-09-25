@@ -104,6 +104,43 @@ def calculate_roi():
 
     return roi_array
 
+def create_weekly_report():
+    updated_data = sales.get_all_values()
+
+    # Create a DataFrame from a list of data
+    df = pd.DataFrame(updated_data[1:], columns=updated_data[0])
+
+    # Create a PDF document
+    doc = SimpleDocTemplate("weekly_report.pdf", pagesize=landscape(letter))
+
+    # Convert DataFrame to a ReportLab table
+    table_data = [list(df.columns)] + df.values.tolist()
+    table = Table(table_data)
+
+    # Set table style
+    style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ])
+
+    table.setStyle(style)
+
+    # Collecting elements to add to the document
+    elements = [table]
+
+    # Ask the user if he/she wants to download the PDF
+    download_choice = input("Would you like to download the report in PDF? (yes/no): ").lower()
+
+    if download_choice == "yes":
+        doc.build(elements)
+        print("Report created and saved to file 'weekly_report.pdf'.")
+    else:
+        print("The report has not been downloaded.")
 
 def main():
     """ Run all program functions """
@@ -119,4 +156,6 @@ def main():
     update_worksheet_column(conversion_rate_data)
     roi_data = calculate_roi()
     update_worksheet_column(roi_data)
+    
+    create_weekly_report()
 main()
