@@ -113,10 +113,31 @@ def create_weekly_report():
     # Create a PDF document
     doc = SimpleDocTemplate("weekly_report.pdf", pagesize=landscape(letter))
 
-    # Convert DataFrame to a ReportLab table
-    table_data = [list(df.columns)] + df.values.tolist()
-    table = Table(table_data)
+    # Collecting elements to add to the document
+    elements = []
 
+    # Add text in front of the table
+    elements.append(Paragraph("Total sales", getSampleStyleSheet()['Heading1']))
+    elements.append(Spacer(1, 12))
+    elements.append(Paragraph(f"Total sales for the week: {20800}$", getSampleStyleSheet()['Normal']))
+
+    elements.append(Paragraph("Average check", getSampleStyleSheet()['Heading1']))
+    elements.append(Spacer(1, 12))
+    elements.append(Paragraph(f"The average check: {round(20800 / 7)}$", getSampleStyleSheet()['Normal']))
+
+    elements.append(Paragraph("Maximum and minimum sales:", getSampleStyleSheet()['Heading1']))
+    elements.append(Spacer(1, 12))
+    max_sales_day = max(data,  key=lambda x: int(x[1]))
+    min_sales_day = min(data,  key=lambda x: int(x[1]))
+    elements.append(Paragraph(f"A day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$", getSampleStyleSheet()['Normal']))
+    elements.append(Paragraph(f"A day with minimum sales {min_sales_day[0]}, sales: {min_sales_day[1]}$", getSampleStyleSheet()['Normal']))
+    elements.append(Spacer(1, 12))
+
+    # Convert DataFrame to a ReportLab table
+    # table_data = [list(df.columns)] + df.values.tolist()
+    table_data = Table([df.columns.tolist()] + df.values.tolist())
+    # table = Table(table_data)
+    
     # Set table style
     style = TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
@@ -128,10 +149,10 @@ def create_weekly_report():
         ('GRID', (0, 0), (-1, -1), 1, colors.black)
     ])
 
-    table.setStyle(style)
+    table_data.setStyle(style)
 
-    # Collecting elements to add to the document
-    elements = [table]
+    # Add a table to the elements of a PDF document
+    elements.append(table_data)
 
     # Ask the user if he/she wants to download the PDF
     download_choice = input("Would you like to download the report in PDF? (yes/no): ").lower()
