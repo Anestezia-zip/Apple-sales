@@ -91,7 +91,18 @@ def calculate_data(name):
     
     return data_array
 
+def calculate_roi():
+    # Calculate Return on Investment
 
+    roi_array = [] 
+    update_data = sales.get_all_values()[1:]
+    for row in update_data:
+        ad_budget, profit = map(float, row[5:7])
+        roi = round((profit - ad_budget) / ad_budget, 2)
+        roi_array.append(roi)
+    roi_array.insert(0, 'ROI (Return on Investment)')
+
+    return roi_array
 
 
 def main():
@@ -106,4 +117,6 @@ def main():
     update_worksheet_column(average_check_data)
     conversion_rate_data = calculate_data('conversion_rate')
     update_worksheet_column(conversion_rate_data)
+    roi_data = calculate_roi()
+    update_worksheet_column(roi_data)
 main()
