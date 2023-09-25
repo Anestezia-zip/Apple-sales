@@ -25,22 +25,30 @@ sales = SHEET.worksheet('sales')
 data = sales.get_all_values()[1:]
 all_data = sales.get_all_values()
 
-def get_weekly_sales():
+def get_total_sales():
     print('Getting sales for the week...\n')
-
-    # Total sales
     total_sales = sum(int(row[1]) for row in data)
     print(f"Total sales for the week: {total_sales}$")
     
-    # Average check
-    average_receipt = total_sales / 7
-    print(f"The average check: {round(average_receipt)}$")
+    return total_sales
 
-    # Maximum and minimum sales: 
+def get_average_check(total_sales):
+    average_check = total_sales / 7
+    print(f"The average check: {round(average_check)}$")
+
+    return average_check
+
+def get_maximum_sales():
     max_sales_day = max(data,  key=lambda x: int(x[1]))
-    min_sales_day = min(data,  key=lambda x: int(x[1]))
     print(f"A day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$")
+    
+    return max_sales_day
+
+def get_minimum_sales():
+    min_sales_day = min(data,  key=lambda x: int(x[1]))
     print(f"A day with minimum sales {min_sales_day[0]}, sales: {min_sales_day[1]}$\n")
+
+    return min_sales_day
 
 def update_worksheet_column(insert_column):
     """
