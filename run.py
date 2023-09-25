@@ -16,6 +16,17 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
+# Set table style
+STYLE = TableStyle([
+    ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+    ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+    ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+    ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+    ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ])
+
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
@@ -33,7 +44,7 @@ def get_total_sales():
     return total_sales
 
 def get_average_check(total_sales):
-    average_check = total_sales / 7
+    average_check = round(total_sales / 7)
     print(f"The average check: {round(average_check)}$")
 
     return average_check
@@ -112,7 +123,28 @@ def calculate_roi():
 
     return roi_array
 
-def create_weekly_report():
+def add_heading_text(total_sales, average_check, max_sales, min_sales):
+    # Add text in front of the table
+    text = []
+    add_space_30 = text.append(Spacer(1, 30))
+    heading1 = getSampleStyleSheet()['Heading1']
+    normal = getSampleStyleSheet()['Normal']
+    p = Paragraph
+    text.append(p("Total sales", heading1))
+    text.append(p(f"Total sales for the week: {total_sales}$", normal))
+    add_space_30
+    text.append(p("Average check", heading1))
+    text.append(p(f"The average check: {average_check}$", normal))
+    add_space_30
+    text.append(p("Maximum and minimum sales:", heading1))
+    text.append(p(f"A day with maximum sales {max_sales[0]}, sales: {max_sales[1]}$", normal))
+    text.append(p(f"A day with minimum sales {min_sales[0]}, sales: {min_sales[1]}$", normal))
+    add_space_30
+
+    return text
+
+
+def create_weekly_report(elements):
     updated_data = sales.get_all_values()
 
     # Create a DataFrame from a list of data
@@ -121,51 +153,20 @@ def create_weekly_report():
     # Create a PDF document
     doc = SimpleDocTemplate("weekly_report.pdf", pagesize=landscape(letter))
 
-    # Collecting elements to add to the document
-    elements = []
-
-    # Add text in front of the table
-    elements.append(Paragraph("Total sales", getSampleStyleSheet()['Heading1']))
-    elements.append(Spacer(1, 12))
-    elements.append(Paragraph(f"Total sales for the week: {20800}$", getSampleStyleSheet()['Normal']))
-
-    elements.append(Paragraph("Average check", getSampleStyleSheet()['Heading1']))
-    elements.append(Spacer(1, 12))
-    elements.append(Paragraph(f"The average check: {round(20800 / 7)}$", getSampleStyleSheet()['Normal']))
-
-    elements.append(Paragraph("Maximum and minimum sales:", getSampleStyleSheet()['Heading1']))
-    elements.append(Spacer(1, 12))
-    max_sales_day = max(data,  key=lambda x: int(x[1]))
-    min_sales_day = min(data,  key=lambda x: int(x[1]))
-    elements.append(Paragraph(f"A day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$", getSampleStyleSheet()['Normal']))
-    elements.append(Paragraph(f"A day with minimum sales {min_sales_day[0]}, sales: {min_sales_day[1]}$", getSampleStyleSheet()['Normal']))
-    elements.append(Spacer(1, 12))
-
     # Convert DataFrame to a ReportLab table
-    # table_data = [list(df.columns)] + df.values.tolist()
     table_data = Table([df.columns.tolist()] + df.values.tolist())
-    # table = Table(table_data)
-    
-    # Set table style
-    style = TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black)
-    ])
 
-    table_data.setStyle(style)
+    # Set table style
+    table_data.setStyle(STYLE)
 
     # Add a table to the elements of a PDF document
+    elements.append(Spacer(1, 15))
     elements.append(table_data)
 
     # Ask the user if he/she wants to download the PDF
     download_choice = input("Would you like to download the report in PDF? (yes/no): ").lower()
 
-    if download_choice == "yes":
+    if download_choice == "yes" or "y":
         doc.build(elements)
         print("Report created and saved to file 'weekly_report.pdf'.")
     else:
@@ -173,18 +174,28 @@ def create_weekly_report():
 
 def main():
     """ Run all program functions """
-    get_weekly_sales()
+    total_sales = get_total_sales()
+    average_check = get_average_check(total_sales)
+    max_sales = get_maximum_sales()
+    min_sales = get_minimum_sales()
     """  
     Call the calculate_data function with the required argument for each calculation and updating data in the table
     """
-    profit_data = calculate_data('profit')
-    update_worksheet_column(profit_data)
-    average_check_data = calculate_data('average_check')
-    update_worksheet_column(average_check_data)
-    conversion_rate_data = calculate_data('conversion_rate')
-    update_worksheet_column(conversion_rate_data)
-    roi_data = calculate_roi()
-    update_worksheet_column(roi_data)
+    # profit_data = calculate_data('profit')
+    # update_worksheet_column(profit_data)
+    # average_check_data = calculate_data('average_check')
+    # update_worksheet_column(average_check_data)
+    # conversion_rate_data = calculate_data('conversion_rate')
+    # update_worksheet_column(conversion_rate_data)
+    # roi_data = calculate_roi()
+    # update_worksheet_column(roi_data)
+
+    elements = []  # Create a list to store the items in the PDF report
+
+    # Call the function that adds the text information and pass it the required values
+    heading_text = add_heading_text(total_sales, average_check, max_sales, min_sales)
+    elements.extend(heading_text)
     
-    create_weekly_report()
+    # Call the function that creates the PDF report and pass it a list of items
+    create_weekly_report(elements)
 main()
