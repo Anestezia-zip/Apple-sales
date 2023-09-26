@@ -82,10 +82,57 @@ def calculate_roi():
     return roi_array
 
 def start_calculations():
-    print("Future description")
+    while True:
+        print("Select an option:")
+        print("1. Get monthly calculations")
+        print("2. Get weekly calculations")
+        print("3. Get daily calculations")
+        print("4. Back to the main menu")
+        
+        choice = input("Enter the option number: ")
+        
+        if choice == "1":
+            # Here will be the code for the monthly calculations
+            get_monthly_calculations()
+            print("")
+        elif choice == "2":
+            # Here will be the code for the weekly calculations
+            print("")
+        elif choice == "3":
+            # Here will be the code for the daily calculations
+            print("")
+        elif choice == "4":
+            break
+        else:
+            print("Некорректный выбор. Попробуйте еще раз.")
 
 def show_about():
     print("Future description")
+
+def get_monthly_calculations():
+    while True:
+        print("Select an option:")
+        print("1. Get FULL REPORT")
+        print("2. Get total sales")
+        print("3. Get weekly average check")
+        print("4. Get maximum sales")
+        print("5. Get minimum sales")
+        print("6. Get profit")
+        print("7. Get order average check")
+        print("8. Get conversion rate")
+        print("9. Get ROI (Return on Investment)")
+        print("10. Back")
+        
+        choice = input("Enter the option number: ")
+        
+        if choice == "1":
+            # Here will be the code for the monthly calculations
+            get_full_monthly_report()
+        elif choice == "2":
+            get_total_sales()
+
+def get_full_monthly_report():
+    print('Future code for monthly report')
 
 def main():
     while True:
