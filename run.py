@@ -194,14 +194,14 @@ def main():
     """  
     Call the calculate_data function with the required argument for each calculation and updating data in the table
     """
-    # profit_data = calculate_data('profit')
-    # update_worksheet_column(profit_data)
-    # average_check_data = calculate_data('average_check')
-    # update_worksheet_column(average_check_data)
-    # conversion_rate_data = calculate_data('conversion_rate')
-    # update_worksheet_column(conversion_rate_data)
-    # roi_data = calculate_roi()
-    # update_worksheet_column(roi_data)
+    profit_data = calculate_data('profit')
+    update_worksheet_column(profit_data)
+    average_check_data = calculate_data('average_check')
+    update_worksheet_column(average_check_data)
+    conversion_rate_data = calculate_data('conversion_rate')
+    update_worksheet_column(conversion_rate_data)
+    roi_data = calculate_roi()
+    update_worksheet_column(roi_data)
 
     updated_data = sales.get_all_values()
     # Create a DataFrame from a list of data
