@@ -146,8 +146,6 @@ def create_graph(df):
     # Extracting dates and sales
     dates = df["Date"]
     sales = df["Sales"]
-    print(dates)
-    print(sales)
     # Creating a graph
     plt.figure(figsize=(10, 6))
     plt.plot(dates, sales, marker='o', linestyle='-', color='b')
