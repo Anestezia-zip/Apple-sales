@@ -1,6 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from pprint import pprint
+from tabulate import tabulate
+
 import pandas as pd
 
 SCOPE = [
@@ -43,27 +45,23 @@ def get_minimum_sales():
 
     return min_sales_day
 
-def calculate_data(name):
-    """
-    Calculate specific metrics based on the provided 'name' using the given data, generates a list, 
-    adds a header to the beginning and return calculated array.
-    """
-    data_array = [] 
-    for row in data:
-        daily_sales, customers, cost, ad_budget, orders = map(float, row[1:6])
-        if name == 'profit':
-            value = daily_sales - cost
-            label = 'Profit'
-        elif name == 'average_check':
-            value = round(daily_sales / orders, 2)
-            label = 'Average check'
-        elif name == 'conversion_rate':
-            value = round(orders / customers, 2)
-            label = 'Conversion rate'
+def calculate_mounthly_data(name):
+    data_array = []
 
-        data_array.append(value)
-    data_array.insert(0, label)    
-    
+    for row in data:
+        date = row[0]
+        daily_sales, customers, cost, orders, ad_budget, profit,  = [float(x) for x in row[1:7]]
+        if name == 'Profit':
+            value = daily_sales - cost
+        elif name == 'Average check':
+            value = round(daily_sales / orders, 2)
+        elif name == 'Сonversion rate':
+            value = orders / customers
+
+        data_array.append([date, round(value, 2)])
+    print(f'Getting {name} for the month...\n')
+    print(tabulate(data_array, headers=["Date", name], tablefmt="pretty"))
+
     return data_array
 
 def calculate_roi():
@@ -86,6 +84,6 @@ def main():
     max_sales = get_maximum_sales()
     min_sales = get_minimum_sales()
 
-main()
+# main()
 
-
+calculate_mounthly_data('Сonversion rate')
