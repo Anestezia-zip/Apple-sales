@@ -3,8 +3,10 @@ from google.oauth2.service_account import Credentials
 from pprint import pprint
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter, landscape
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet
+import matplotlib.pyplot as plt
 import pandas as pd
 import warnings
 from gspread import Worksheet
@@ -94,10 +96,6 @@ def calculate_data(name):
         if name == 'profit':
             value = daily_sales - cost
             label = 'Profit'
-        # elif name == 'roi':
-        #     profit = int(row[6])
-        #     value = round((profit - ad_budget) / ad_budget, 2)
-        #     label = 'ROI (Return on Investment)'
         elif name == 'average_check':
             value = round(daily_sales / orders, 2)
             label = 'Average check'
@@ -144,12 +142,29 @@ def add_heading_text(total_sales, average_check, max_sales, min_sales):
     return text
 
 
-def create_weekly_report(elements):
-    updated_data = sales.get_all_values()
+def create_graph(df):
+    # Extracting dates and sales
+    dates = df["Date"]
+    sales = df["Sales"]
+    print(dates)
+    print(sales)
+    # Creating a graph
+    plt.figure(figsize=(10, 6))
+    plt.plot(dates, sales, marker='o', linestyle='-', color='b')
+    plt.title("Sales dynamics by day of the week")
+    plt.xlabel("Date")
+    plt.ylabel("Sales ($)")
+    plt.xticks(rotation=45)
+    plt.grid(True)
 
-    # Create a DataFrame from a list of data
-    df = pd.DataFrame(updated_data[1:], columns=updated_data[0])
+    # Saving the graph to a file
+    plt.savefig("sales_graph.png")
 
+    graph_image = Image('sales_graph.png', width=6*inch, height=4*inch)  # Specify the path to the image
+
+    return graph_image
+
+def create_weekly_report(elements, df):
     # Create a PDF document
     doc = SimpleDocTemplate("weekly_report.pdf", pagesize=landscape(letter))
 
@@ -190,12 +205,20 @@ def main():
     # roi_data = calculate_roi()
     # update_worksheet_column(roi_data)
 
+    updated_data = sales.get_all_values()
+    # Create a DataFrame from a list of data
+    df = pd.DataFrame(updated_data[1:], columns=updated_data[0])
     elements = []  # Create a list to store the items in the PDF report
+
+    # Create graph
+    graph_image = create_graph(df)
 
     # Call the function that adds the text information and pass it the required values
     heading_text = add_heading_text(total_sales, average_check, max_sales, min_sales)
     elements.extend(heading_text)
-    
+    elements.append(graph_image)
+
     # Call the function that creates the PDF report and pass it a list of items
-    create_weekly_report(elements)
+    create_weekly_report(elements, df)
+
 main()
