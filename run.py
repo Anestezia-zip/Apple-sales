@@ -27,7 +27,7 @@ def get_total_sales():
     
     return total_sales
 
-def get_average_check(total_sales):
+def get_weekly_average_check(total_sales):
     average_check = round(total_sales / 7)
     print(f"The average check: {round(average_check)}$")
 
@@ -53,14 +53,17 @@ def calculate_mounthly_data(name):
         daily_sales, customers, cost, orders, ad_budget, profit,  = [float(x) for x in row[1:7]]
         if name == 'Profit':
             value = daily_sales - cost
-        elif name == 'Average check':
+            label = '$'
+        elif name == 'Order average check':
             value = round(daily_sales / orders, 2)
+            label = '$'
         elif name == 'Сonversion rate':
-            value = orders / customers
+            value = orders / customers * 100
+            label = '%'
 
         data_array.append([date, round(value, 2)])
     print(f'Getting {name} for the month...\n')
-    print(tabulate(data_array, headers=["Date", name], tablefmt="pretty"))
+    print(tabulate(data_array, headers=["Date", f"{name} ({label})"], tablefmt="pretty"))
 
     return data_array
 
@@ -71,19 +74,21 @@ def calculate_roi():
     update_data = sales.get_all_values()[1:]
     for row in update_data:
         ad_budget, profit = map(float, row[5:7])
-        roi = round((profit - ad_budget) / ad_budget, 2)
-        roi_array.append(roi)
-    roi_array.insert(0, 'ROI (Return on Investment)')
-
+        roi = round((profit - ad_budget) / ad_budget * 100, 2)
+        roi_array.append([row[0], roi])
+    print(f'Getting ROI for the month...\n')
+    print(tabulate(roi_array, headers=["Date", "ROI (Return on Investment) %"], tablefmt="pretty"))
+    
     return roi_array
 
 def main():
     """ Run all program functions """
     total_sales = get_total_sales()
-    average_check = get_average_check(total_sales)
+    weekly_average_check = get_weekly_average_check(total_sales)
     max_sales = get_maximum_sales()
     min_sales = get_minimum_sales()
 
 # main()
 
-calculate_mounthly_data('Сonversion rate')
+# calculate_mounthly_data('Сonversion rate')
+calculate_roi()
