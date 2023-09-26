@@ -81,14 +81,28 @@ def calculate_roi():
     
     return roi_array
 
+def start_calculations():
+    print("Future description")
+
+def show_about():
+    print("Future description")
+
 def main():
-    """ Run all program functions """
-    total_sales = get_total_sales()
-    weekly_average_check = get_weekly_average_check(total_sales)
-    max_sales = get_maximum_sales()
-    min_sales = get_minimum_sales()
+    while True:
+        print("Select an option:")
+        print("1. Start calculations")
+        print("2. About")
+        print("3. End program")
+        
+        choice = input("Enter an option number: ")
+        
+        if choice == "1":
+            start_calculations()
+        elif choice == "2":
+            show_about()
+        elif choice == "3":
+            break
+        else:
+            print("Incorrect selection. Try again.\n")
 
-# main()
-
-# calculate_mounthly_data('Сonversion rate')
-calculate_roi()
+main()
