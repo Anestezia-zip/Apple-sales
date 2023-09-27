@@ -110,6 +110,7 @@ def start_calculations():
             break
         elif choice == 5:
             sys.exit()
+            clear_terminal()
         else:
             print("Incorrect selection. Try again.\n")
 
@@ -158,6 +159,7 @@ def get_monthly_calculations():
             break
         elif choice == 11:
             sys.exit()
+            clear_terminal()
 
 def get_full_monthly_report():
     total_sales = get_total_sales()
@@ -237,6 +239,10 @@ def get_daily_data(input_day, data):
 
 def show_about():
     print("Future description")
+
+def clear_terminal():
+    # Terminal cleanup using ANSI escape code
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def main():
     while True:
