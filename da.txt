@@ -1,31 +1,25 @@
 Start calculations
     Get monthly calculations
         Get FULL REPORT
-        Get total sales
-        Get weekly average check
-        Get maximum sales
-        Get minimum sales
-        Get profit
-        Get order average check
-        Get conversion rate
-        Get ROI (Return on Investment)
-        Back
+        Get total sales                     |
+        Get weekly average check            |
+        Get maximum sales                   |   DONE
+        Get minimum sales                   | 
+        Get profit                          |
+        Get order average check             |
+        Get conversion rate                 |
+        Get ROI (Return on Investment)      |
+        Back                                |
     Get weekly calculations
         Get calculations for 1t week
-            Get FULL REPORT
-            Get total sales
-            Get weekly average check
-            Get maximum sales
-            Get minimum sales
-            Get profit
-            Get order average check
-            Get conversion rate
-            Get ROI (Return on Investment)
+            Means FULL REPORT
         Get calculations for 2d week
-            Same
+            Means FULL REPORT
         Get calculations for 3d week
-            Same
+            Means FULL REPORT
         Get calculations for 4th week
-            Same
+            Means FULL REPORT
+        Compare weeks
+            Enter the weeks you want to compare 
     Get daily calculations
         Enter the date you want to calculate

@@ -81,6 +81,10 @@ def calculate_roi():
     
     return roi_array
 
+"""
+------------------------------------------- Start all calculations -------------------------------------------
+"""
+
 def start_calculations():
     while True:
         print("Select an option:")
@@ -90,21 +94,26 @@ def start_calculations():
         print("4. Back to the main menu")
         print("5. End program")
         
-        choice = input("Enter the option number: ")
+        choice = int(input("Enter the option number: "))
         print()
         
-        if choice == "1":
+        if choice == 1:
             get_monthly_calculations()
-        elif choice == "2":
-            print("Here will be the code for the weekly calculations")
-        elif choice == "3":
+        elif choice == 2:
+            week_number = int(input("Enter the week number (1, 2, 3, or 4): "))
+            get_weekly_calculations(week_number, all_data)
+        elif choice == 3:
             print("Here will be the code for the daily calculations")
-        elif choice == "4":
+        elif choice == 4:
             break
-        elif choice == "5":
+        elif choice == 5:
             sys.exit()
         else:
             print("Incorrect selection. Try again.\n")
+
+"""
+------------------------------------------- Mounthly calculations -------------------------------------------
+"""
 
 def get_monthly_calculations():
     total_sales = 0
@@ -122,31 +131,31 @@ def get_monthly_calculations():
         print("10. Back")
         print("11. End program")
         
-        choice = input("Enter the option number: ")
+        choice = int(input("Enter the option number: "))
         print()
 
-        if choice == "1":
+        if choice == 1:
             # Here will be the code for the monthly calculations
             get_full_monthly_report()
-        elif choice == "2":
+        elif choice == 2:
             total_sales = get_total_sales()
-        elif choice == "3":
+        elif choice == 3:
             get_average_check(total_sales, 30)
-        elif choice == "4":
+        elif choice == 4:
             get_maximum_sales()
-        elif choice == "5":
+        elif choice == 5:
             get_minimum_sales()
-        elif choice == "6":
+        elif choice == 6:
             calculate_mounthly_data('Profit')
-        elif choice == "7":
+        elif choice == 7:
             calculate_mounthly_data('Order average check')
-        elif choice == "8":
+        elif choice == 8:
             calculate_mounthly_data('Сonversion rate')
-        elif choice == "9":
+        elif choice == 9:
             calculate_roi()
-        elif choice == "10":
+        elif choice == 10:
             break
-        elif choice == "11":
+        elif choice == 11:
             sys.exit()
 
 def get_full_monthly_report():
@@ -156,6 +165,46 @@ def get_full_monthly_report():
     min_sales = get_minimum_sales()
     table = tabulate(data, headers=all_data[0], tablefmt="grid")
     print(table)
+
+"""
+------------------------------------------- Weekly calculations -------------------------------------------
+"""
+def get_weekly_calculations(week_number, data):
+    week_data = []
+
+    if week_number == 1:
+        week_data.extend(data[1:8])
+    elif week_number == 2:
+        week_data.extend(data[8:15])
+    elif week_number == 3:
+        week_data.extend(data[15:23])
+    elif week_number == 4:
+        week_data.extend(data[23:31])
+
+    if week_data:
+        total_sales = sum(float(row[1]) for row in week_data)
+        max_sales_day = max(week_data, key=lambda x: float(x[1]))
+        min_sales_day = min(week_data, key=lambda x: float(x[1]))
+        total_profit = sum(float(row[6]) for row in week_data)
+        total_orders = sum(float(row[4]) for row in week_data)
+        total_ad_budget = sum(float(row[5]) for row in week_data)
+        average_check = total_sales / len(week_data)
+        order_average_check = total_sales / total_orders
+        conversion_rate = (total_orders / sum(float(row[2]) for row in week_data)) * 100
+        roi = ((total_profit - total_ad_budget) / total_ad_budget) * 100
+
+        print(f"\033[1mTotal sales for the {week_number} week: {total_sales}$\033[0m")
+        print(f"\033[1mMaximum sales day for the {week_number} week: {max_sales_day[0]}, Sales: {max_sales_day[1]}$\033[0m")
+        print(f"\033[1mMinimum sales day for the {week_number} week: {min_sales_day[0]}, Sales: {min_sales_day[1]}$\033[0m")
+        print(f"\033[1mTotal profit for the {week_number} week: {total_profit}$\033[0m")
+        print(f"\033[1mOrder average check for the {week_number} week: {order_average_check:.2f}$\033[0m")
+        print(f"\033[1mConversion rate for the {week_number} week: {conversion_rate:.2f}%\033[0m")
+        print(f"\033[1mTotal ad budget for the {week_number} week: {total_ad_budget}$\033[0m")
+        print(f"\033[1mAverage check for the {week_number} week: {average_check:.2f}$\033[0m")
+        print(f"\033[1mROI (Return on Investment) for the {week_number} week: {roi:.2f}%\033[0m")
+    else:
+        print()
+        print(f"\033[1mNo data available for week {week_number}\033[0m\n")
 
 def show_about():
     print("Future description")
@@ -168,14 +217,14 @@ def main():
         print("2. About")
         print("3. End program")
         
-        choice = input("Enter an option number: ")
+        choice = int(input("Enter an option number: "))
         print()
         
-        if choice == "1":
+        if choice == 1:
             start_calculations()
-        elif choice == "2":
+        elif choice == 2:
             show_about()
-        elif choice == "3":
+        elif choice == 3:
             break
         else:
             print("Incorrect selection. Try again.\n")
