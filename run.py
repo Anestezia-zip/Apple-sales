@@ -65,6 +65,7 @@ def calculate_mounthly_data(name):
         data_array.append([date, round(value, 2)])
     print(f'\033[1mGetting {name} for the month...\033[0m\n')
     print(tabulate(data_array, headers=["Date", f"{name} ({label})"], tablefmt="pretty"))
+    print()
 
     return data_array
 
@@ -158,6 +159,8 @@ def get_monthly_calculations():
             break
         elif choice == 11:
             sys.exit()
+        else:
+            print("Incorrect selection. Try again.\n")
 
 def get_full_monthly_report():
     total_sales = get_total_sales()
@@ -181,6 +184,9 @@ def get_weekly_calculations(input_week, data):
         week_data.extend(data[15:23])
     elif input_week == 4:
         week_data.extend(data[23:31])
+    else:
+        print()
+        print(f"Incorrect selection. Try again.\n")
 
     if week_data:
         total_sales = sum(float(row[1]) for row in week_data)
@@ -208,7 +214,7 @@ def get_weekly_calculations(input_week, data):
         print(f"\033[1mNo data available for week {input_week}\033[0m\n")
 
 """
-------------------------------------------- Daily data -------------------------------------------
+------------------------------------------------ Daily data ------------------------------------------------
 """
 def get_daily_data(input_day, data):
     day_data = []
