@@ -1,9 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 from tabulate import tabulate
 import sys
-import os
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -244,9 +242,6 @@ def get_daily_data(input_day, data):
 def show_about():
     print("Future description")
 
-def clear_terminal():
-    # Terminal cleanup using ANSI escape code
-    os.system('cls' if os.name == 'nt' else 'clear')
 
 def main():
     while True:
