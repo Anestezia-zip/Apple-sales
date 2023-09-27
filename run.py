@@ -135,7 +135,6 @@ def get_monthly_calculations():
         print()
 
         if choice == 1:
-            # Here will be the code for the monthly calculations
             get_full_monthly_report()
         elif choice == 2:
             total_sales = get_total_sales()
@@ -160,25 +159,25 @@ def get_monthly_calculations():
 
 def get_full_monthly_report():
     total_sales = get_total_sales()
-    average_check = get_average_check(total_sales, 30)
-    max_sales = get_maximum_sales()
-    min_sales = get_minimum_sales()
+    get_average_check(total_sales, 30)
+    get_maximum_sales()
+    get_minimum_sales()
     table = tabulate(data, headers=all_data[0], tablefmt="grid")
     print(table)
 
 """
 ------------------------------------------- Weekly calculations -------------------------------------------
 """
-def get_weekly_calculations(week_number, data):
+def get_weekly_calculations(input_week, data):
     week_data = []
 
-    if week_number == 1:
+    if input_week == 1:
         week_data.extend(data[1:8])
-    elif week_number == 2:
+    elif input_week == 2:
         week_data.extend(data[8:15])
-    elif week_number == 3:
+    elif input_week == 3:
         week_data.extend(data[15:23])
-    elif week_number == 4:
+    elif input_week == 4:
         week_data.extend(data[23:31])
 
     if week_data:
@@ -193,18 +192,23 @@ def get_weekly_calculations(week_number, data):
         conversion_rate = (total_orders / sum(float(row[2]) for row in week_data)) * 100
         roi = ((total_profit - total_ad_budget) / total_ad_budget) * 100
 
-        print(f"\033[1mTotal sales for the {week_number} week: {total_sales}$\033[0m")
-        print(f"\033[1mMaximum sales day for the {week_number} week: {max_sales_day[0]}, Sales: {max_sales_day[1]}$\033[0m")
-        print(f"\033[1mMinimum sales day for the {week_number} week: {min_sales_day[0]}, Sales: {min_sales_day[1]}$\033[0m")
-        print(f"\033[1mTotal profit for the {week_number} week: {total_profit}$\033[0m")
-        print(f"\033[1mOrder average check for the {week_number} week: {order_average_check:.2f}$\033[0m")
-        print(f"\033[1mConversion rate for the {week_number} week: {conversion_rate:.2f}%\033[0m")
-        print(f"\033[1mTotal ad budget for the {week_number} week: {total_ad_budget}$\033[0m")
-        print(f"\033[1mAverage check for the {week_number} week: {average_check:.2f}$\033[0m")
-        print(f"\033[1mROI (Return on Investment) for the {week_number} week: {roi:.2f}%\033[0m")
+        print(f"\033[1mTotal sales for the {input_week} week: {total_sales}$\033[0m")
+        print(f"\033[1mMaximum sales day for the {input_week} week: {max_sales_day[0]}, Sales: {max_sales_day[1]}$\033[0m")
+        print(f"\033[1mMinimum sales day for the {input_week} week: {min_sales_day[0]}, Sales: {min_sales_day[1]}$\033[0m")
+        print(f"\033[1mTotal profit for the {input_week} week: {total_profit}$\033[0m")
+        print(f"\033[1mOrder average check for the {input_week} week: {order_average_check:.2f}$\033[0m")
+        print(f"\033[1mConversion rate for the {input_week} week: {conversion_rate:.2f}%\033[0m")
+        print(f"\033[1mTotal ad budget for the {input_week} week: {total_ad_budget}$\033[0m")
+        print(f"\033[1mAverage check for the {input_week} week: {average_check:.2f}$\033[0m")
+        print(f"\033[1mROI (Return on Investment) for the {input_week} week: {roi:.2f}%\033[0m")
     else:
         print()
-        print(f"\033[1mNo data available for week {week_number}\033[0m\n")
+        print(f"\033[1mNo data available for week {input_week}\033[0m\n")
+
+"""
+------------------------------------------- Daily calculations -------------------------------------------
+"""
+
 
 def show_about():
     print("Future description")
