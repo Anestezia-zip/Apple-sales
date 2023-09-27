@@ -18,6 +18,19 @@ sales = SHEET.worksheet('sales')
 data = sales.get_all_values()[1:]
 all_data = sales.get_all_values()
 
+def validate_data(value, min_value, max_value):
+    try:
+        value = int(value)
+        if min_value <= value <= max_value:
+            return True
+        else:
+            print(f"Input must be a number between {min_value} and {max_value}.")
+            return False
+    except ValueError:
+        print("Input must be a number.")
+        return False
+
+
 def get_total_sales():
     print('\033[1mGetting sales...\033[0m\n')
     total_sales = sum(int(row[1]) for row in data)
@@ -254,13 +267,14 @@ def main():
         choice = int(input("Enter an option number: "))
         print()
         
-        if choice == 1:
-            start_calculations()
-        elif choice == 2:
-            show_about()
-        elif choice == 3:
-            break
-        else:
-            print("Incorrect selection. Try again.\n")
+        if validate_data(choice, 1, 3):
+            if choice == 1:
+                start_calculations()
+            elif choice == 2:
+                show_about()
+            elif choice == 3:
+                break
+            else:
+                print("Incorrect selection. Try again.\n")
 
 main()
