@@ -3,6 +3,7 @@ from google.oauth2.service_account import Credentials
 from pprint import pprint
 from tabulate import tabulate
 import sys
+import os
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -163,7 +164,7 @@ def get_full_monthly_report():
     get_average_check(total_sales, 30)
     get_maximum_sales()
     get_minimum_sales()
-    table = tabulate(data, headers=all_data[0], tablefmt="grid")
+    table = tabulate(data, headers=all_data[0], tablefmt="simple")
     print(table)
 
 """
