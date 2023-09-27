@@ -29,13 +29,13 @@ def get_total_sales():
 def get_average_check(total_sales, days):
     print('\033[1mGetting average check...\033[0m\n')
     average_check = round(total_sales / days)
-    print(f"\033[1mThe average check: {round(average_check)}$\033[0m")
+    print(f"\033[1mThe average check: {round(average_check)}$\033[0m\n")
 
     return average_check
 
 def get_maximum_sales():
     max_sales_day = max(data,  key=lambda x: int(x[1]))
-    print(f"\033[1mA day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$\033[0m")
+    print(f"\033[1mA day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$\033[0m\n")
     
     return max_sales_day
 
@@ -83,7 +83,6 @@ def calculate_roi():
 
 def start_calculations():
     while True:
-        print()
         print("Select an option:")
         print("1. Get monthly calculations")
         print("2. Get weekly calculations")
@@ -110,7 +109,6 @@ def start_calculations():
 def get_monthly_calculations():
     total_sales = 0
     while True:
-        print()
         print("Select an option:")
         print("1. Get FULL REPORT")
         print("2. Get total sales")
@@ -152,7 +150,12 @@ def get_monthly_calculations():
             sys.exit()
 
 def get_full_monthly_report():
-    print('Future code for monthly report')
+    total_sales = get_total_sales()
+    average_check = get_average_check(total_sales, 30)
+    max_sales = get_maximum_sales()
+    min_sales = get_minimum_sales()
+    table = tabulate(data, headers=all_data[0], tablefmt="grid")
+    print(table)
 
 def show_about():
     print("Future description")
