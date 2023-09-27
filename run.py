@@ -2,8 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from pprint import pprint
 from tabulate import tabulate
-
-import pandas as pd
+import sys
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -21,27 +20,28 @@ data = sales.get_all_values()[1:]
 all_data = sales.get_all_values()
 
 def get_total_sales():
-    print('Getting sales for the week...\n')
+    print('\033[1mGetting sales...\033[0m\n')
     total_sales = sum(int(row[1]) for row in data)
-    print(f"Total sales for the week: {total_sales}$")
+    print(f"\033[1mTotal sales: {total_sales}$\033[0m\n")
     
     return total_sales
 
-def get_weekly_average_check(total_sales):
-    average_check = round(total_sales / 7)
-    print(f"The average check: {round(average_check)}$")
+def get_average_check(total_sales, days):
+    print('\033[1mGetting average check...\033[0m\n')
+    average_check = round(total_sales / days)
+    print(f"\033[1mThe average check: {round(average_check)}$\033[0m")
 
     return average_check
 
 def get_maximum_sales():
     max_sales_day = max(data,  key=lambda x: int(x[1]))
-    print(f"A day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$")
+    print(f"\033[1mA day with maximum sales {max_sales_day[0]}, sales: {max_sales_day[1]}$\033[0m")
     
     return max_sales_day
 
 def get_minimum_sales():
     min_sales_day = min(data,  key=lambda x: int(x[1]))
-    print(f"A day with minimum sales {min_sales_day[0]}, sales: {min_sales_day[1]}$\n")
+    print(f"\033[1mA day with minimum sales {min_sales_day[0]}, sales: {min_sales_day[1]}$\033[0m\n")
 
     return min_sales_day
 
@@ -62,7 +62,7 @@ def calculate_mounthly_data(name):
             label = '%'
 
         data_array.append([date, round(value, 2)])
-    print(f'Getting {name} for the month...\n')
+    print(f'\033[1mGetting {name} for the month...\033[0m\n')
     print(tabulate(data_array, headers=["Date", f"{name} ({label})"], tablefmt="pretty"))
 
     return data_array
@@ -76,45 +76,45 @@ def calculate_roi():
         ad_budget, profit = map(float, row[5:7])
         roi = round((profit - ad_budget) / ad_budget * 100, 2)
         roi_array.append([row[0], roi])
-    print(f'Getting ROI for the month...\n')
+    print(f'\033[1mGetting ROI for the month...\033[0m\n')
     print(tabulate(roi_array, headers=["Date", "ROI (Return on Investment) %"], tablefmt="pretty"))
     
     return roi_array
 
 def start_calculations():
     while True:
+        print()
         print("Select an option:")
         print("1. Get monthly calculations")
         print("2. Get weekly calculations")
         print("3. Get daily calculations")
         print("4. Back to the main menu")
+        print("5. End program")
         
         choice = input("Enter the option number: ")
+        print()
         
         if choice == "1":
-            # Here will be the code for the monthly calculations
             get_monthly_calculations()
-            print("")
         elif choice == "2":
-            # Here will be the code for the weekly calculations
-            print("")
+            print("Here will be the code for the weekly calculations")
         elif choice == "3":
-            # Here will be the code for the daily calculations
-            print("")
+            print("Here will be the code for the daily calculations")
         elif choice == "4":
             break
+        elif choice == "5":
+            sys.exit()
         else:
-            print("Некорректный выбор. Попробуйте еще раз.")
-
-def show_about():
-    print("Future description")
+            print("Incorrect selection. Try again.\n")
 
 def get_monthly_calculations():
+    total_sales = 0
     while True:
+        print()
         print("Select an option:")
         print("1. Get FULL REPORT")
         print("2. Get total sales")
-        print("3. Get weekly average check")
+        print("3. Get monthly average check")
         print("4. Get maximum sales")
         print("5. Get minimum sales")
         print("6. Get profit")
@@ -122,26 +122,51 @@ def get_monthly_calculations():
         print("8. Get conversion rate")
         print("9. Get ROI (Return on Investment)")
         print("10. Back")
+        print("11. End program")
         
         choice = input("Enter the option number: ")
-        
+        print()
+
         if choice == "1":
             # Here will be the code for the monthly calculations
             get_full_monthly_report()
         elif choice == "2":
-            get_total_sales()
+            total_sales = get_total_sales()
+        elif choice == "3":
+            get_average_check(total_sales, 30)
+        elif choice == "4":
+            get_maximum_sales()
+        elif choice == "5":
+            get_minimum_sales()
+        elif choice == "6":
+            calculate_mounthly_data('Profit')
+        elif choice == "7":
+            calculate_mounthly_data('Order average check')
+        elif choice == "8":
+            calculate_mounthly_data('Сonversion rate')
+        elif choice == "9":
+            calculate_roi()
+        elif choice == "10":
+            break
+        elif choice == "11":
+            sys.exit()
 
 def get_full_monthly_report():
     print('Future code for monthly report')
 
+def show_about():
+    print("Future description")
+
 def main():
     while True:
+        print()
         print("Select an option:")
         print("1. Start calculations")
         print("2. About")
         print("3. End program")
         
         choice = input("Enter an option number: ")
+        print()
         
         if choice == "1":
             start_calculations()
