@@ -108,7 +108,7 @@ def start_calculations():
         print("4. Back to the main menu")
         print("5. End program")
         
-        choice = int(input("Enter the option number: "))
+        choice = input("Enter the option number: ")
         print()
 
         if validate_data(choice, 1, 5):
@@ -116,12 +116,12 @@ def start_calculations():
             if choice == 1:
                 get_monthly_calculations()
             elif choice == 2:
-                input_week = int(input("Enter the week number (1, 2, 3, or 4): "))
+                input_week = input("Enter the week number (1, 2, 3, or 4): ")
                 if validate_data(input_week, 1, 4):
                     input_week = int(input_week)
                     get_weekly_calculations(input_week, all_data)
             elif choice == 3:
-                input_day = int(input("Enter the date (in the format DD): "))
+                input_day = input("Enter the date (in the format DD): ")
                 if validate_data(input_day, 1, 30):
                     input_day = int(input_day)
                     get_daily_data(input_day, data)
@@ -152,9 +152,9 @@ def get_monthly_calculations():
         print("10. Back")
         print("11. End program")
         
-        choice = int(input("Enter the option number: "))
+        choice = input("Enter the option number: ")
         print()
-        
+
         if validate_data(choice, 1, 11):
             choice = int(choice)
             if choice == 1:
@@ -228,7 +228,7 @@ def get_weekly_calculations(input_week, data):
         print(f"\033[1mConversion rate for the {input_week} week: {conversion_rate:.2f}%\033[0m")
         print(f"\033[1mTotal ad budget for the {input_week} week: {total_ad_budget}$\033[0m")
         print(f"\033[1mAverage check for the {input_week} week: {average_check:.2f}$\033[0m")
-        print(f"\033[1mROI (Return on Investment) for the {input_week} week: {roi:.2f}%\033[0m")
+        print(f"\033[1mROI (Return on Investment) for the {input_week} week: {roi:.2f}%\033[0m\n")
     else:
         print()
         print(f"\033[1mNo data available for week {input_week}\033[0m\n")
