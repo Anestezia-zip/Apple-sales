@@ -2,6 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
 import sys
+import os
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -109,21 +110,27 @@ def start_calculations():
         
         choice = int(input("Enter the option number: "))
         print()
-        
-        if choice == 1:
-            get_monthly_calculations()
-        elif choice == 2:
-            input_week = int(input("Enter the week number (1, 2, 3, or 4): "))
-            get_weekly_calculations(input_week, all_data)
-        elif choice == 3:
-            input_day = int(input("Enter the date (in the format DD): "))
-            get_daily_data(input_day, data)
-        elif choice == 4:
-            break
-        elif choice == 5:
-            sys.exit()
-        else:
-            print("Incorrect selection. Try again.\n")
+
+        if validate_data(choice, 1, 5):
+            choice = int(choice)
+            if choice == 1:
+                get_monthly_calculations()
+            elif choice == 2:
+                input_week = int(input("Enter the week number (1, 2, 3, or 4): "))
+                if validate_data(input_week, 1, 4):
+                    input_week = int(input_week)
+                    get_weekly_calculations(input_week, all_data)
+            elif choice == 3:
+                input_day = int(input("Enter the date (in the format DD): "))
+                if validate_data(input_day, 1, 30):
+                    input_day = int(input_day)
+                    get_daily_data(input_day, data)
+            elif choice == 4:
+                break
+            elif choice == 5:
+                sys.exit()
+            else:
+                print("Incorrect selection. Try again.\n")
 
 """
 ------------------------------------------- Mounthly calculations -------------------------------------------
@@ -147,31 +154,33 @@ def get_monthly_calculations():
         
         choice = int(input("Enter the option number: "))
         print()
-
-        if choice == 1:
-            get_full_monthly_report()
-        elif choice == 2:
-            total_sales = get_total_sales()
-        elif choice == 3:
-            get_average_check(total_sales, 30)
-        elif choice == 4:
-            get_maximum_sales()
-        elif choice == 5:
-            get_minimum_sales()
-        elif choice == 6:
-            calculate_mounthly_data('Profit')
-        elif choice == 7:
-            calculate_mounthly_data('Order average check')
-        elif choice == 8:
-            calculate_mounthly_data('Сonversion rate')
-        elif choice == 9:
-            calculate_roi()
-        elif choice == 10:
-            break
-        elif choice == 11:
-            sys.exit()
-        else:
-            print("Incorrect selection. Try again.\n")
+        
+        if validate_data(choice, 1, 11):
+            choice = int(choice)
+            if choice == 1:
+                get_full_monthly_report()
+            elif choice == 2:
+                total_sales = get_total_sales()
+            elif choice == 3:
+                get_average_check(total_sales, 30)
+            elif choice == 4:
+                get_maximum_sales()
+            elif choice == 5:
+                get_minimum_sales()
+            elif choice == 6:
+                calculate_mounthly_data('Profit')
+            elif choice == 7:
+                calculate_mounthly_data('Order average check')
+            elif choice == 8:
+                calculate_mounthly_data('Сonversion rate')
+            elif choice == 9:
+                calculate_roi()
+            elif choice == 10:
+                break
+            elif choice == 11:
+                sys.exit()
+            else:
+                print("Incorrect selection. Try again.\n")
 
 def get_full_monthly_report():
     total_sales = get_total_sales()
@@ -254,7 +263,6 @@ def get_daily_data(input_day, data):
 
 def show_about():
     print("Future description")
-
 
 def main():
     while True:
