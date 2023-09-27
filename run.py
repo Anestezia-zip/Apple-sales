@@ -90,7 +90,7 @@ def start_calculations():
         print("Select an option:")
         print("1. Get monthly calculations")
         print("2. Get weekly calculations")
-        print("3. Get daily calculations")
+        print("3. Get daily data")
         print("4. Back to the main menu")
         print("5. End program")
         
@@ -100,10 +100,11 @@ def start_calculations():
         if choice == 1:
             get_monthly_calculations()
         elif choice == 2:
-            week_number = int(input("Enter the week number (1, 2, 3, or 4): "))
-            get_weekly_calculations(week_number, all_data)
+            input_week = int(input("Enter the week number (1, 2, 3, or 4): "))
+            get_weekly_calculations(input_week, all_data)
         elif choice == 3:
-            print("Here will be the code for the daily calculations")
+            input_day = int(input("Enter the date (in the format DD): "))
+            get_daily_data(input_day, data)
         elif choice == 4:
             break
         elif choice == 5:
@@ -208,7 +209,30 @@ def get_weekly_calculations(input_week, data):
 """
 ------------------------------------------- Daily calculations -------------------------------------------
 """
+def get_daily_data(input_day, data):
+    day_data = []
 
+    # Go through all the data rows and find the ones that correspond to the specified day
+    for row in data:
+        date = row[0]  
+        day = int(date.split('/')[0]) 
+
+        if day == input_day:
+            day_data.extend(row)
+
+    if day_data:
+        print(f"\033[1mSales for the {input_day} day: {day_data[1]}$\033[0m")
+        print(f"\033[1mNumber of customers for the {input_day} day: {day_data[2]}\033[0m")
+        print(f"\033[1mCost of sales for the {input_day} day: {day_data[3]}$\033[0m")
+        print(f"\033[1mOrders for the {input_day} day: {day_data[4]}\033[0m")
+        print(f"\033[1mAd budget for the {input_day} day: {day_data[5]}$\033[0m")
+        print(f"\033[1mProfit for the {input_day} day: {day_data[6]}$\033[0m")
+        print(f"\033[1mOrder average check for the {input_day} day: {day_data[7]}$\033[0m")
+        print(f"\033[1mConversion rate for the {input_day} day: {day_data[8]}%\033[0m")
+        print(f"\033[1mROI (Return on Investment) for the {input_day} day: {day_data[9]}%\033[0m")
+    else:
+        print(f"No data available for the {input_day} day")        
+        
 
 def show_about():
     print("Future description")
