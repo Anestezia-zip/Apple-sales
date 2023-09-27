@@ -264,9 +264,9 @@ def main():
         print("2. About")
         print("3. End program")
         
-        choice = int(input("Enter an option number: "))
+        choice = input("Enter an option number: ")
         print()
-        
+
         if validate_data(choice, 1, 3):
             if choice == 1:
                 start_calculations()
