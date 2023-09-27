@@ -110,7 +110,6 @@ def start_calculations():
             break
         elif choice == 5:
             sys.exit()
-            clear_terminal()
         else:
             print("Incorrect selection. Try again.\n")
 
@@ -159,7 +158,6 @@ def get_monthly_calculations():
             break
         elif choice == 11:
             sys.exit()
-            clear_terminal()
 
 def get_full_monthly_report():
     total_sales = get_total_sales()
