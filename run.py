@@ -18,16 +18,16 @@ sales = SHEET.worksheet('sales')
 data = sales.get_all_values()[1:]
 all_data = sales.get_all_values()
 
-def validate_data(value, min_value, max_value):
+def validate_data(input_value, min_value, max_value):
     try:
-        value = int(value)
+        value = int(input_value)
         if min_value <= value <= max_value:
             return True
         else:
-            print(f"Input must be a number between {min_value} and {max_value}.")
+            print(f"\033[1mInput must be a number between {min_value} and {max_value}.\033[0m")
             return False
     except ValueError:
-        print("Input must be a number.")
+        print("\033[1mInput must be a number.\033[0m")
         return False
 
 
@@ -268,6 +268,7 @@ def main():
         print()
 
         if validate_data(choice, 1, 3):
+            choice = int(choice)
             if choice == 1:
                 start_calculations()
             elif choice == 2:
