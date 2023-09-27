@@ -1,6 +1,6 @@
-Start calculations
-    Get monthly calculations
-        Get FULL REPORT
+Start calculations                          |
+    Get monthly calculations                |   
+        Get FULL REPORT                     |
         Get total sales                     |
         Get weekly average check            |
         Get maximum sales                   |   DONE
@@ -10,15 +10,8 @@ Start calculations
         Get conversion rate                 |
         Get ROI (Return on Investment)      |
         Back                                |
-    Get weekly calculations
-        Get calculations for 1t week
-            Means FULL REPORT
-        Get calculations for 2d week
-            Means FULL REPORT
-        Get calculations for 3d week
-            Means FULL REPORT
-        Get calculations for 4th week
-            Means FULL REPORT
+    Get weekly calculations                 |
+        Get weekly calculations
         Compare weeks
             Enter the weeks you want to compare 
     Get daily calculations

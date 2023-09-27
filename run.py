@@ -207,7 +207,7 @@ def get_weekly_calculations(input_week, data):
         print(f"\033[1mNo data available for week {input_week}\033[0m\n")
 
 """
-------------------------------------------- Daily calculations -------------------------------------------
+------------------------------------------- Daily data -------------------------------------------
 """
 def get_daily_data(input_day, data):
     day_data = []
