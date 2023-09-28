@@ -151,7 +151,7 @@ def start_calculations():
                     input_week = int(input_week)
                     get_weekly_calculations(input_week, all_data)
             elif choice == 3:
-                input_day = input("Enter the date (in the format DD): ")
+                input_day = input("Enter the date (in the format DD: 1 to 30): ")
                 if validate_data(input_day, 1, 30):
                     input_day = int(input_day)
                     get_daily_data(input_day, data)
