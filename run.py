@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
+from pyfiglet import figlet_format
 import sys
 
 SCOPE = [
@@ -416,6 +417,7 @@ def show_about():
 
 def main():
     while True:
+        print(figlet_format("apple sales calculations", font="larry3d"))
         print()
         print("Select an option:")
         print("1. Start calculations")
@@ -438,3 +440,4 @@ def main():
 
 
 main()
+
