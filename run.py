@@ -416,9 +416,8 @@ def show_about():
 
 
 def main():
+    print(figlet_format("apple sales reports", font="larry3d"))
     while True:
-        print(figlet_format("apple sales reports", font="larry3d"))
-        # print(figlet_format("apple sales calculations", font="larry3d"))
         print()
         print("Select an option:")
         print("1. Start calculations")
