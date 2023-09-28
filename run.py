@@ -262,7 +262,33 @@ def get_daily_data(input_day, data):
         
 
 def show_about():
-    print("Future description")
+    print("\033[1mThis program provides various options for performing calculations and obtaining data.\033[0m")
+    print("\033[1mUsers can choose between monthly, weekly, and daily calculations, and access a range of specific metrics related to sales and performance.\033[0m")
+    print("\033[1mOverall, it seems like a versatile tool for analyzing and calculating various aspects of data and performance.\033[0m\n")
+   
+    print("\033[1m1. Get total sales:\033[0m")
+    print("   - Purpose: This calculation provides the total sales revenue for a specific period (e.g., month, week, or day). It gives you an overview of the overall revenue generated during that time frame.\n")
+   
+    print("\033[1m2. Get average check:\033[0m")
+    print("   - Purpose: The average check calculates the average amount of money spent per transaction in a given week or month. It helps in understanding customer spending patterns on a weekly/monthly basis.\n")
+    
+    print("\033[1m3. Get maximum sales:\033[0m")
+    print("   - Purpose: This calculation identifies the highest sales figure within the chosen period. It helps in recognizing the peak performance and the highest revenue achieved.\n")
+
+    print("\033[1m4. Get minimum sales:\033[0m")
+    print("   - Purpose: Similar to maximum sales, this calculation identifies the lowest sales figure within the chosen period. It helps in identifying periods of low performance or potential issues.\n")
+
+    print("\033[1m5. Get profit:\033[0m")
+    print("   - Purpose: Profit calculation subtracts the costs or expenses from the total revenue. It provides insights into the profitability of your business for a specific time frame.\n")
+
+    print("\033[1m6. Get order average check:\033[0m")
+    print("   - Purpose: The order average check calculates the average amount spent by customers per order. It helps in understanding individual purchase behavior and can guide pricing strategies.\n")
+
+    print("\033[1m7. Get conversion rate:\033[0m")
+    print("   - Purpose: Conversion rate measures the percentage of customers who take a desired action, such as making a purchase or completing a form. It helps evaluate the effectiveness of marketing campaigns and website optimization.\n")
+
+    print("\033[1m8. Get ROI (Return on Investment):\033[0m")
+    print("   - Purpose: ROI measures the return (profit) on an investment relative to the initial cost (investment). It is used to assess the performance and profitability of investments or marketing campaigns. A positive ROI indicates profitability.\n")
 
 def main():
     while True:
