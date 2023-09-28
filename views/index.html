@@ -1,11 +1,11 @@
 <body style="background-image: url(https://i.pinimg.com/originals/9f/38/53/9f385384cf86350110d2d0029a0dcc15.jpg);">
-    <button onclick="window.location.reload()" style="background-color: cadetblue;">Run Program</button>
     <div id="terminal"></div>
+    <button onclick="window.location.reload()" style="background-color: cadetblue;">Run Program</button>
 
     <script>
         var term = new Terminal({
             cols: 160,
-            rows: 36
+            rows: 34
         });
         term.open(document.getElementById('terminal'));
         term.writeln('Running startup command: python3 run.py');

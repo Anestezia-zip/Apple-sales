@@ -14,3 +14,14 @@ The "Apple sales" data is stored in Google Sheet, which is used as a database, a
 ## Features
 
 When you start the program, the welcome screen displays the program name and offers three options to choose from: start calculations, about the program, and end the program.
+
+![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695909539/apple-sales/1_option_l1b0mj.jpg)
+
+If the user selects "Start calculations", he is offered a choice of monthly, weekly or daily calculations. The user can also return to the main menu or end the program.
+
+![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695909254/apple-sales/2_option_v764zm.jpg)
+
+- Get monthly calculations
+
+- Get weekly calculations
+- Get daily data
