@@ -19,6 +19,7 @@ sales = SHEET.worksheet('sales')
 data = sales.get_all_values()[1:]
 all_data = sales.get_all_values()
 
+
 def validate_data(input_value, min_value, max_value):
     try:
         value = int(input_value)
