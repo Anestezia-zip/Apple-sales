@@ -12,7 +12,7 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('love_sandwiches_data')
+SHEET = GSPREAD_CLIENT.open('apple_sales')
 
 sales = SHEET.worksheet('sales')
 data = sales.get_all_values()[1:]
@@ -26,10 +26,10 @@ def validate_data(input_value, min_value, max_value):
             return True
         else:
             print(f"\033[1mInput must be a number between {min_value}"
-                  f" and {max_value}.\033[0m")
+                  f" and {max_value}.\033[0m\n")
             return False
     except ValueError:
-        print("\033[1mInput must be a number.\033[0m")
+        print("\033[1mInput must be a number.\033[0m\n")
         return False
 
 
