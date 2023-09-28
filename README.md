@@ -21,7 +21,63 @@ If the user selects "Start calculations", he is offered a choice of monthly, wee
 
 ![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695909254/apple-sales/2_option_v764zm.jpg)
 
-- Get monthly calculations
+### Get monthly calculations  
 
-- Get weekly calculations
-- Get daily data
+![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695910493/apple-sales/month_feucbr.jpg)
+
+By clicking "Get FULL REPORT", the user gets a full monthly calculation which includes all calculations available in the following options (such as total sales, monthly average check, etc.). The user is also presented with a full table of data.
+
+![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695909923/apple-sales/full_report_mk0t4r.jpg)
+
+Each of these calculations serves a specific purpose in analyzing business performance, sales, profitability, and customer behavior. They provide valuable insights that can inform decision-making and help businesses optimize their strategies.
+
+<details open>
+  <summary>Get total sales</summary>  
+
+    Purpose: This calculation provides the total sales revenue for a specific period (e.g., month, week, or day). It gives you an overview of the overall revenue generated during that time frame.
+</details>
+
+<details>
+  <summary>Get weekly average check</summary>  
+
+    Purpose: The weekly average check calculates the average amount of money spent per transaction in a given week. It helps in understanding customer spending patterns on a weekly basis.
+</details>
+
+<details>
+  <summary>Get maximum sales</summary>  
+
+    Purpose: This calculation identifies the highest sales figure within the chosen period. It helps in recognizing the peak performance and the highest revenue achieved.
+</details>
+
+<details>
+  <summary>Get minimum sales</summary>  
+
+    Purpose: Similar to maximum sales, this calculation identifies the lowest sales figure within the chosen period. It helps in identifying periods of low performance or potential issues.
+</details>
+
+<details>
+  <summary>Get profit</summary>  
+
+    Purpose: Profit calculation subtracts the costs or expenses from the total revenue. It provides insights into the profitability of your business for a specific time frame.
+</details>
+
+<details>
+  <summary>Get order average check</summary>  
+
+    Purpose: The order average check calculates the average amount spent by customers per order. It helps in understanding individual purchase behavior and can guide pricing strategies.
+</details>
+
+<details>
+  <summary>Get conversion rate</summary>  
+
+    Purpose: Conversion rate measures the percentage of customers who take a desired action, such as making a purchase or completing a form. It helps evaluate the effectiveness of marketing campaigns and website optimization.
+</details>
+
+<details>
+  <summary>Get ROI (Return on Investment)</summary>  
+
+    Purpose: ROI measures the return (profit) on an investment relative to the initial cost (investment). It is used to assess the performance and profitability of investments or marketing campaigns. A positive ROI indicates profitability.
+</details>
+
+### Get weekly calculations
+### Get daily data

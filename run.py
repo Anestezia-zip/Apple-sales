@@ -62,8 +62,10 @@ def get_maximum_sales():
 
 def get_minimum_sales():
     min_sales_day = min(data, key=lambda x: int(x[1]))
-    print(f"\033[1mA day with minimum sales {min_sales_day[0]},"
-          " sales: {min_sales_day[1]}$\033[0m\n")
+    print(
+        f"\033[1mA day with minimum sales {min_sales_day[0]},"
+        f" sales: {min_sales_day[1]}$\033[0m\n"
+    )
 
     return min_sales_day
 
@@ -440,4 +442,3 @@ def main():
 
 
 main()
-
