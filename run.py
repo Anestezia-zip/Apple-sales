@@ -16,8 +16,8 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('apple_sales')
 
 sales = SHEET.worksheet('sales')
-data = sales.get_all_values()[1:]
 all_data = sales.get_all_values()
+data = all_data[1:]
 
 
 def validate_data(input_value, min_value, max_value):
@@ -28,7 +28,7 @@ def validate_data(input_value, min_value, max_value):
         value = int(input_value)
         if min_value <= value <= max_value:
             return True
-        
+
         print(
             f"\033[1m Input must be a number between {min_value}"
             f" and {max_value}.\033[0m\n"
@@ -98,7 +98,7 @@ def calculate_mounthly_data(name):
         elif name == 'Order average check':
             value = round(daily_sales / orders, 2)
             label = '$'
-        elif name == 'Сonversion rate':
+        elif name == 'Conversion rate':
             value = orders / customers * 100
             label = '%'
         elif name == 'ROI (Return on Investment)':
@@ -147,14 +147,14 @@ def start_calculations():
                 input_week = input("Enter the week number (1, 2, 3, or 4): ")
                 if validate_data(input_week, 1, 4):
                     input_week = int(input_week)
-                    get_weekly_calculations(input_week, all_data)
+                    get_weekly_calculations(input_week)
             elif choice == 3:
                 input_day = input(
                     "Enter the date (in the format DD: 1 to 30): "
                 )
                 if validate_data(input_day, 1, 30):
                     input_day = int(input_day)
-                    get_daily_data(input_day, data)
+                    get_daily_data(input_day)
             elif choice == 4:
                 break
             elif choice == 5:
@@ -229,7 +229,7 @@ def get_full_monthly_report():
     print(table)
 
 
-def get_weekly_calculations(input_week, data):
+def get_weekly_calculations(input_week):
     """
     Calculate and display weekly data metrics for the specified week.
 
@@ -243,13 +243,14 @@ def get_weekly_calculations(input_week, data):
     week_data = []
 
     if input_week == 1:
-        week_data.extend(data[1:8])
+        week_data = data[0:7]
+        print(week_data)
     elif input_week == 2:
-        week_data.extend(data[8:15])
+        week_data = data[7:14]
     elif input_week == 3:
-        week_data.extend(data[15:23])
+        week_data = data[14:22]
     elif input_week == 4:
-        week_data.extend(data[23:31])
+        week_data = data[22:30]
 
     if week_data:
         total_sales = sum(float(row[1]) for row in week_data)
@@ -304,7 +305,7 @@ def get_weekly_calculations(input_week, data):
         print(f"\n\033[1m No data available \033[0m\n")
 
 
-def get_daily_data(input_day, data):
+def get_daily_data(input_day):
     """
     Retrieve and display daily data metrics for the specified day.
 
@@ -321,7 +322,7 @@ def get_daily_data(input_day, data):
         day = int(date.split('/')[0])
 
         if day == input_day:
-            day_data.extend(row)
+            day_data = row
 
     if day_data:
         print(f"\033[1m Sales for the {input_day} day: {day_data[1]}$\033[0m")
