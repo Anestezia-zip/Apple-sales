@@ -79,8 +79,10 @@ def calculate_mounthly_data(name):
     """
     Calculate and display monthly data based on the specified metric.
 
-    This function takes a metric name as input ('Profit', 'Order average check', or 'Conversion rate'),
-    processes the data for each day, and returns a list of monthly values rounded to two decimal places.
+    This function takes a metric name as input ('Profit', 'Сonversion rate',
+    or 'Conversion rate'),
+    processes the data for each day, and returns a list of monthly values
+    rounded to two decimal places.
     """
     data_array = []
 
@@ -99,6 +101,9 @@ def calculate_mounthly_data(name):
         elif name == 'Сonversion rate':
             value = orders / customers * 100
             label = '%'
+        elif name == 'ROI (Return on Investment)':
+            value = (profit - ad_budget) / ad_budget * 100
+            label = '%'
 
         data_array.append([date, round(value, 2)])
     print(f'\033[1m Getting {name} for the month...\033[0m\n')
@@ -113,38 +118,15 @@ def calculate_mounthly_data(name):
     return data_array
 
 
-def calculate_roi():
-    """
-    Calculate and display the Return on Investment (ROI) for the month.
-
-    This function computes the ROI for each day based on the provided sales data,
-    and returns a list of ROI values rounded to two decimal places for each date.
-    """
-    roi_array = []
-
-    update_data = sales.get_all_values()[1:]
-    for row in update_data:
-        ad_budget, profit = map(float, row[5:7])
-        roi = round((profit - ad_budget) / ad_budget * 100, 2)
-        roi_array.append([row[0], roi])
-    print(f'\033[1m Getting ROI for the month...\033[0m\n')
-    print(
-        tabulate(
-            roi_array,
-            headers=["Date", "ROI (Return on Investment) %"],
-            tablefmt="pretty"
-        )
-    )
-
-    return roi_array
-
-
 def start_calculations():
     """
-    Display a menu of options for various calculations and perform the selected action.
+    Display a menu of options for various calculations and perform the selected
+    action.
 
-    The user can choose an option by entering the corresponding number. The function then validates the input,
-    performs the selected action, and continues to loop until the user chooses to go back to the main menu or end the program.
+    The user can choose an option by entering the corresponding number.
+    The function then validates the input, performs the selected action, and
+    continues to loop until the user chooses to go back to the main menu
+    or end the program.
     """
     while True:
         print("Select an option:")
@@ -167,7 +149,9 @@ def start_calculations():
                     input_week = int(input_week)
                     get_weekly_calculations(input_week, all_data)
             elif choice == 3:
-                input_day = input("Enter the date (in the format DD: 1 to 30): ")
+                input_day = input(
+                    "Enter the date (in the format DD: 1 to 30): "
+                )
                 if validate_data(input_day, 1, 30):
                     input_day = int(input_day)
                     get_daily_data(input_day, data)
@@ -179,10 +163,13 @@ def start_calculations():
 
 def get_monthly_calculations():
     """
-    Display a menu of options for monthly calculations and perform the selected action.
+    Display a menu of options for monthly calculations and perform the selected
+    action.
 
-    The user can choose an option by entering the corresponding number. The function then validates the input,
-    performs the selected action, and continues to loop until the user chooses to go back to the previous menu or end the program.
+    The user can choose an option by entering the corresponding number.
+    The function then validates the input,
+    performs the selected action, and continues to loop until the user chooses
+    to go back to the previous menu or end the program.
     """
     total_sales = 0
     while True:
@@ -221,7 +208,7 @@ def get_monthly_calculations():
             elif choice == 8:
                 calculate_mounthly_data('Conversion rate')
             elif choice == 9:
-                calculate_roi()
+                calculate_mounthly_data('ROI (Return on Investment)')
             elif choice == 10:
                 break
             elif choice == 11:
@@ -231,7 +218,8 @@ def get_monthly_calculations():
 def get_full_monthly_report():
     """
     Generate and display a full monthly report with various data metrics.
-    The function retrieves the necessary data and metrics from other functions and displays them in a formatted table.
+    The function retrieves the necessary data and metrics from other functions
+    and displays them in a formatted table.
     """
     total_sales = get_total_sales()
     get_average_check(total_sales, 30)
@@ -245,7 +233,7 @@ def get_weekly_calculations(input_week, data):
     """
     Calculate and display weekly data metrics for the specified week.
 
-    :param input_week: The week number to calculate metrics for (1, 2, 3, or 4).
+    :param input_week: The week number to calculate metrics for (1, 2, 3, or 4)
     :type input_week: int
     :param data: The dataset containing daily sales and other relevant data.
     :type data: list of lists
@@ -320,7 +308,7 @@ def get_daily_data(input_day, data):
     """
     Retrieve and display daily data metrics for the specified day.
 
-    :param input_day: The day of the month for which to retrieve data (1 to 30).
+    :param input_day: The day of the month for which to retrieve data (1 to 30)
     :type input_day: int
     :param data: The dataset containing daily sales and other relevant data.
     :type data: list of lists
@@ -459,6 +447,7 @@ def main():
                 show_about()
             elif choice == 3:
                 break
+
 
 if __name__ == "__main__":
     main()
