@@ -40,17 +40,17 @@ def validate_data(input_value, min_value, max_value):
 
 
 def get_total_sales():
-    print('\033[1mGetting sales...\033[0m\n')
+    print('\033[1m Getting sales...\033[0m\n')
     total_sales = sum(int(row[1]) for row in data)
-    print(f"\033[1mTotal sales: {total_sales}$\033[0m\n")
+    print(f"\033[1m Total sales: {total_sales}$\033[0m\n")
 
     return total_sales
 
 
 def get_average_check(total_sales, days):
-    print('\033[1mGetting average check...\033[0m\n')
+    print('\033[1m Getting average check...\033[0m\n')
     average_check = round(total_sales / days)
-    print(f"\033[1mThe average check: {round(average_check)}$\033[0m\n")
+    print(f"\033[1m The average check: {round(average_check)}$\033[0m\n")
 
     return average_check
 
@@ -76,6 +76,12 @@ def get_minimum_sales():
 
 
 def calculate_mounthly_data(name):
+    """
+    Calculate and display monthly data based on the specified metric.
+
+    This function takes a metric name as input ('Profit', 'Order average check', or 'Conversion rate'),
+    processes the data for each day, and returns a list of monthly values rounded to two decimal places.
+    """
     data_array = []
 
     for row in data:
@@ -95,7 +101,7 @@ def calculate_mounthly_data(name):
             label = '%'
 
         data_array.append([date, round(value, 2)])
-    print(f'\033[1mGetting {name} for the month...\033[0m\n')
+    print(f'\033[1m Getting {name} for the month...\033[0m\n')
     print(
         tabulate(
             data_array,
@@ -103,22 +109,25 @@ def calculate_mounthly_data(name):
             tablefmt="pretty"
         )
     )
-
     print()
-
     return data_array
 
 
 def calculate_roi():
-    # Calculate Return on Investment
+    """
+    Calculate and display the Return on Investment (ROI) for the month.
 
+    This function computes the ROI for each day based on the provided sales data,
+    and returns a list of ROI values rounded to two decimal places for each date.
+    """
     roi_array = []
+
     update_data = sales.get_all_values()[1:]
     for row in update_data:
         ad_budget, profit = map(float, row[5:7])
         roi = round((profit - ad_budget) / ad_budget * 100, 2)
         roi_array.append([row[0], roi])
-    print(f'\033[1mGetting ROI for the month...\033[0m\n')
+    print(f'\033[1m Getting ROI for the month...\033[0m\n')
     print(
         tabulate(
             roi_array,
@@ -131,6 +140,12 @@ def calculate_roi():
 
 
 def start_calculations():
+    """
+    Display a menu of options for various calculations and perform the selected action.
+
+    The user can choose an option by entering the corresponding number. The function then validates the input,
+    performs the selected action, and continues to loop until the user chooses to go back to the main menu or end the program.
+    """
     while True:
         print("Select an option:")
         print("1. Get monthly calculations")
@@ -160,12 +175,15 @@ def start_calculations():
                 break
             elif choice == 5:
                 sys.exit()
-            else:
-                print("Incorrect selection. Try again.\n")
-
 
 
 def get_monthly_calculations():
+    """
+    Display a menu of options for monthly calculations and perform the selected action.
+
+    The user can choose an option by entering the corresponding number. The function then validates the input,
+    performs the selected action, and continues to loop until the user chooses to go back to the previous menu or end the program.
+    """
     total_sales = 0
     while True:
         print("Select an option:")
@@ -201,18 +219,20 @@ def get_monthly_calculations():
             elif choice == 7:
                 calculate_mounthly_data('Order average check')
             elif choice == 8:
-                calculate_mounthly_data('Сonversion rate')
+                calculate_mounthly_data('Conversion rate')
             elif choice == 9:
                 calculate_roi()
             elif choice == 10:
                 break
             elif choice == 11:
                 sys.exit()
-            else:
-                print("Incorrect selection. Try again.\n")
 
 
 def get_full_monthly_report():
+    """
+    Generate and display a full monthly report with various data metrics.
+    The function retrieves the necessary data and metrics from other functions and displays them in a formatted table.
+    """
     total_sales = get_total_sales()
     get_average_check(total_sales, 30)
     get_maximum_sales()
@@ -222,6 +242,16 @@ def get_full_monthly_report():
 
 
 def get_weekly_calculations(input_week, data):
+    """
+    Calculate and display weekly data metrics for the specified week.
+
+    :param input_week: The week number to calculate metrics for (1, 2, 3, or 4).
+    :type input_week: int
+    :param data: The dataset containing daily sales and other relevant data.
+    :type data: list of lists
+    :return: None
+    """
+
     week_data = []
 
     if input_week == 1:
@@ -286,12 +316,18 @@ def get_weekly_calculations(input_week, data):
         print(f"\n\033[1m No data available \033[0m\n")
 
 
-
 def get_daily_data(input_day, data):
+    """
+    Retrieve and display daily data metrics for the specified day.
+
+    :param input_day: The day of the month for which to retrieve data (1 to 30).
+    :type input_day: int
+    :param data: The dataset containing daily sales and other relevant data.
+    :type data: list of lists
+    :return: None
+    """
     day_data = []
 
-    # Go through all the data rows and find the ones that
-    # correspond to the specified day
     for row in data:
         date = row[0]
         day = int(date.split('/')[0])
@@ -300,34 +336,34 @@ def get_daily_data(input_day, data):
             day_data.extend(row)
 
     if day_data:
-        print(f"\033[1mSales for the {input_day} day: {day_data[1]}$\033[0m")
+        print(f"\033[1m Sales for the {input_day} day: {day_data[1]}$\033[0m")
         print(
-            f"\033[1mNumber of customers for the {input_day} day: "
+            f"\033[1m Number of customers for the {input_day} day: "
             f"{day_data[2]}\033[0m"
         )
         print(
-            f"\033[1mCost of sales for the {input_day} day: "
+            f"\033[1m Cost of sales for the {input_day} day: "
             f"{day_data[3]}$\033[0m"
         )
-        print(f"\033[1mOrders for the {input_day} day: {day_data[4]}\033[0m")
+        print(f"\033[1m Orders for the {input_day} day: {day_data[4]}\033[0m")
         print(
-            f"\033[1mAd budget for the {input_day} day: {day_data[5]}$\033[0m"
+            f"\033[1m Ad budget for the {input_day} day: {day_data[5]}$\033[0m"
         )
-        print(f"\033[1mProfit for the {input_day} day: {day_data[6]}$\033[0m")
+        print(f"\033[1m Profit for the {input_day} day: {day_data[6]}$\033[0m")
         print(
-            f"\033[1mOrder average check for the {input_day} day: "
+            f"\033[1m Order average check for the {input_day} day: "
             f"{day_data[7]}$\033[0m"
         )
         print(
-            f"\033[1mConversion rate for the {input_day} day: "
+            f"\033[1m Conversion rate for the {input_day} day: "
             f"{day_data[8]}%\033[0m"
         )
         print(
-            f"\033[1mROI (Return on Investment) for the {input_day} day: "
+            f"\033[1m ROI (Return on Investment) for the {input_day} day: "
             f"{day_data[9]}%\033[0m"
         )
     else:
-        print(f"No data available for the {input_day} day")
+        print(f"\033[1m No data available \033[0m")
 
 
 def show_about():
