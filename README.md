@@ -4,7 +4,7 @@ Welcome,
 
 This program provides various options for performing calculations and obtaining data. Users can choose between monthly, weekly, and daily calculations, and access a range of specific metrics related to sales and performance. Overall, it is a versatile tool for analyzing and calculating various aspects of data and performance.
 
-The "Apple sales" data is stored in Google Sheet, which is used as a database, and using Google's APIs for Gdrive and Google sheets, relevant data is extracted from it and presented to the user based on their choice of calculations. 
+The "Apple sales" data is stored in Google Sheet, which is used as a database, and using Google's APIs for Gdrive and Google sheets, relevant data is extracted from it and presented to the user based on their choice of calculations. Please note that the data used in this project is entirely fictitious. These data reflect activities that take place during the month of September.
 
 [Here is a live link to my project](https://apple-sales-report-6a3868d388e4.herokuapp.com/)
 
@@ -95,3 +95,67 @@ Once the user enters the number of the week they want to calculate, they will be
 After the user enters the number of the day (from 1 to 30), which he wants to calculate, he will be displayed all the data with calculations for a particular day, as well as return to the previous menu.
 
 ![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695912647/apple-sales/day_v2oc5g.jpg)
+
+### Error messages
+
+1. **Input Must Be a Number:**
+
+Description: This error message is shown when the user enters non-numeric input.
+
+![err](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1696002307/apple-sales/error_afaowm.jpg)  
+
+2. **Input Out of Range:**  
+
+Description: This error message is displayed when the user enters a numeric value that is outside the specified range.
+
+![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1696002360/apple-sales/error_t0afmr.jpg)
+   
+
+These error messages help guide users when they provide incorrect input and provide clear feedback on what went wrong.
+
+## Future features
+
+1. **Additional Data Sources:** Incorporate real data sources to make the calculations more realistic and practical.
+
+2. **Custom Date Ranges:** Allow users to input custom date ranges for calculations, providing greater flexibility.
+
+3. **Export Functionality:** Implement the ability to export calculation results to various file formats for further analysis.
+
+4. **Enhanced Visualization:** Create interactive visualizations to help users better understand the data and metrics.
+
+5. **Integration as a Library:** Transform this project into a reusable library for financial and sales calculations, making it accessible to a wider audience.
+
+## Testing
+
+I manually tested the project using the following methods:
+
+- Testing the responsiveness of the deployed site on Heroku on various sizes of devices using Chrome tools.
+
+- Testing browser compatibility with Firefox, Safari, and Chrome on the deployed site on Heroku.
+
+- Tests for correctness of retrieving data about each calculation from a Google spreadsheet and displaying it in the program.
+
+- Provided incorrect data to make sure appropriate error messages were issued.
+
+- Tested the code through [Pep8](https://pep8ci.herokuapp.com/#) to make sure there are no critical issues.  
+
+![pep8](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1696002744/apple-sales/cli_sdaijb.jpg)
+
+## Deployment 
+In order to deploy the project on Heroku, the following steps were taken:
+
+Activate Dyno points in the billing section of the Heroku account settings.
+
+In the Heroku dashboard create a new project and give it a name.
+
+In the project settings add 2 config vars (kEY: Creds VALUE: Copy and paste the credentials from the creds.json file and a second configuration KEY: PORT with VALUE: 8000).
+
+Also in the project settings add two build packs (A python build pack and a node.js build pack in that order).
+
+Then go to the deploy tab of the project and connect the project's Github repository.
+
+After the Github repository has been connected, select the manual deploy option which will deploy the project if no errors arise.
+
+## Credits
+
+The background image was taken from [getwallpapers.com](https://getwallpapers.com/collection/nature-wallpapers-full-screen)
