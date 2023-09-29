@@ -21,17 +21,22 @@ all_data = sales.get_all_values()
 
 
 def validate_data(input_value, min_value, max_value):
+    """
+    Validates user input and make sure that it is within the given range.
+    """
     try:
         value = int(input_value)
         if min_value <= value <= max_value:
             return True
-        else:
-            print(f"\033[1mInput must be a number between {min_value}"
-                  f" and {max_value}.\033[0m\n")
-            return False
+        
+        print(
+            f"\033[1m Input must be a number between {min_value}"
+            f" and {max_value}.\033[0m\n"
+        )
     except ValueError:
-        print("\033[1mInput must be a number.\033[0m\n")
-        return False
+        print("\033[1m Input must be a number.\033[0m\n")
+
+    return False
 
 
 def get_total_sales():
@@ -53,7 +58,7 @@ def get_average_check(total_sales, days):
 def get_maximum_sales():
     max_sales_day = max(data,  key=lambda x: int(x[1]))
     print(
-        f"\033[1mA day with maximum sales {max_sales_day[0]}, "
+        f"\033[1m A day with maximum sales {max_sales_day[0]}, "
         f"sales: {max_sales_day[1]}$\033[0m\n"
     )
 
@@ -63,7 +68,7 @@ def get_maximum_sales():
 def get_minimum_sales():
     min_sales_day = min(data, key=lambda x: int(x[1]))
     print(
-        f"\033[1mA day with minimum sales {min_sales_day[0]},"
+        f"\033[1m A day with minimum sales {min_sales_day[0]},"
         f" sales: {min_sales_day[1]}$\033[0m\n"
     )
 
@@ -124,10 +129,6 @@ def calculate_roi():
 
     return roi_array
 
-    """
---------------------------- Start all calculations ---------------------------
-"""
-
 
 def start_calculations():
     while True:
@@ -162,9 +163,6 @@ def start_calculations():
             else:
                 print("Incorrect selection. Try again.\n")
 
-    """
----------------------------- Mounthly calculations ----------------------------
-"""
 
 
 def get_monthly_calculations():
@@ -222,10 +220,6 @@ def get_full_monthly_report():
     table = tabulate(data, headers=all_data[0], tablefmt="simple")
     print(table)
 
-    """
------------------------------ Weekly calculations -----------------------------
-"""
-
 
 def get_weekly_calculations(input_week, data):
     week_data = []
@@ -238,9 +232,6 @@ def get_weekly_calculations(input_week, data):
         week_data.extend(data[15:23])
     elif input_week == 4:
         week_data.extend(data[23:31])
-    else:
-        print()
-        print(f"Incorrect selection. Try again.\n")
 
     if week_data:
         total_sales = sum(float(row[1]) for row in week_data)
@@ -256,48 +247,44 @@ def get_weekly_calculations(input_week, data):
         roi = ((total_profit - total_ad_budget) / total_ad_budget) * 100
 
         print(
-            f"\033[1mTotal sales for the {input_week} week: "
+            f"\033[1m Total sales for the {input_week} week: "
             f"{total_sales}$\033[0m"
         )
         print(
-            f"\033[1mMaximum sales day for the {input_week} week: "
+            f"\033[1m Maximum sales day for the {input_week} week: "
             f"{max_sales_day[0]}, Sales: {max_sales_day[1]}$\033[0m"
         )
         print(
-            f"\033[1mMinimum sales day for the {input_week} week: "
+            f"\033[1m Minimum sales day for the {input_week} week: "
             f"{min_sales_day[0]}, Sales: {min_sales_day[1]}$\033[0m"
         )
         print(
-            f"\033[1mTotal profit for the {input_week} week: "
+            f"\033[1m Total profit for the {input_week} week: "
             f"{total_profit}$\033[0m"
         )
         print(
-            f"\033[1mOrder average check for the {input_week} week: "
+            f"\033[1m Order average check for the {input_week} week: "
             f"{order_average_check:.2f}$\033[0m"
         )
         print(
-            f"\033[1mConversion rate for the {input_week} week: "
+            f"\033[1m Conversion rate for the {input_week} week: "
             f"{conversion_rate:.2f}%\033[0m"
         )
         print(
-            f"\033[1mTotal ad budget for the {input_week} week: "
+            f"\033[1m Total ad budget for the {input_week} week: "
             f"{total_ad_budget}$\033[0m"
         )
         print(
-            f"\033[1mAverage check for the {input_week} week: "
+            f"\033[1m Average check for the {input_week} week: "
             f"{average_check:.2f}$\033[0m"
         )
         print(
-            f"\033[1mROI (Return on Investment) for the {input_week} week: "
+            f"\033[1m ROI (Return on Investment) for the {input_week} week: "
             f"{roi:.2f}%\033[0m\n"
         )
     else:
-        print()
-        print(f"\033[1mNo data available for week {input_week}\033[0m\n")
+        print(f"\n\033[1m No data available \033[0m\n")
 
-    """
----------------------------------- Daily data ---------------------------------
-"""
 
 
 def get_daily_data(input_day, data):
@@ -345,62 +332,62 @@ def get_daily_data(input_day, data):
 
 def show_about():
     print(
-        "\033[1mThis program provides various options for performing "
+        "\033[1m This program provides various options for performing "
         "calculations and obtaining data.\033[0m"
     )
     print(
-        "\033[1mUsers can choose between monthly, weekly, and daily "
+        "\033[1m Users can choose between monthly, weekly, and daily "
         "calculations, and access a range of specific metrics related to "
         "sales and performance.\033[0m"
     )
     print(
-        "\033[1mOverall, it seems like a versatile tool for analyzing and "
+        "\033[1m Overall, it seems like a versatile tool for analyzing and "
         "calculating various aspects of data and performance.\033[0m\n"
     )
 
-    print("\033[1m1. Get total sales:\033[0m")
+    print("\033[1m 1. Get total sales:\033[0m")
     print(
         "   - Purpose: This calculation provides the total sales revenue for "
         "a specific period (e.g., month, week, or day). It gives you an "
         "overview of the overall revenue generated during that time frame.\n"
     )
 
-    print("\033[1m2. Get average check:\033[0m")
+    print("\033[1m 2. Get average check:\033[0m")
     print(
         "   - Purpose: The average check calculates the average amount of "
         "money spent per transaction in a given week or month. It helps in "
         "understanding customer spending patterns on a weekly/monthly basis.\n"
     )
 
-    print("\033[1m3. Get maximum sales:\033[0m")
+    print("\033[1m 3. Get maximum sales:\033[0m")
     print(
         "   - Purpose: This calculation identifies the highest sales figure "
         "within the chosen period. It helps in recognizing the peak "
         "performance and the highest revenue achieved.\n"
     )
 
-    print("\033[1m4. Get minimum sales:\033[0m")
+    print("\033[1m 4. Get minimum sales:\033[0m")
     print(
         "   - Purpose: Similar to maximum sales, this calculation identifies "
         "the lowest sales figure within the chosen period. It helps in "
         "identifying periods of low performance or potential issues.\n"
     )
 
-    print("\033[1m5. Get profit:\033[0m")
+    print("\033[1m 5. Get profit:\033[0m")
     print(
         "   - Purpose: Profit calculation subtracts the costs or expenses "
         "from the total revenue. It provides insights into the profitability "
         "of your business for a specific time frame.\n"
     )
 
-    print("\033[1m6. Get order average check:\033[0m")
+    print("\033[1m 6. Get order average check:\033[0m")
     print(
         "   - Purpose: The order average check calculates the average amount "
         "spent by customers per order. It helps in understanding individual "
         "purchase behavior and can guide pricing strategies.\n"
     )
 
-    print("\033[1m7. Get conversion rate:\033[0m")
+    print("\033[1m 7. Get conversion rate:\033[0m")
     print(
         "   - Purpose: Conversion rate measures the percentage of customers "
         "who take a desired action, such as making a purchase or completing a "
@@ -408,7 +395,7 @@ def show_about():
         "website optimization.\n"
     )
 
-    print("\033[1m8. Get ROI (Return on Investment):\033[0m")
+    print("\033[1m 8. Get ROI (Return on Investment):\033[0m")
     print(
         "   - Purpose: ROI measures the return (profit) on an investment "
         "relative to the initial cost (investment). It is used to assess the "
@@ -420,8 +407,7 @@ def show_about():
 def main():
     print(figlet_format("apple sales reports", font="larry3d"))
     while True:
-        print()
-        print("Select an option:")
+        print("\nSelect an option:")
         print("1. Start calculations")
         print("2. About")
         print("3. End program")
@@ -437,8 +423,6 @@ def main():
                 show_about()
             elif choice == 3:
                 break
-            else:
-                print("Incorrect selection. Try again.\n")
 
-
-main()
+if __name__ == "__main__":
+    main()

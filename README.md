@@ -92,5 +92,6 @@ Once the user enters the number of the week they want to calculate, they will be
 
 ![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695911418/apple-sales/week_ol7zkr.jpg)
 ### Get daily data
+After the user enters the number of the day (from 1 to 30), which he wants to calculate, he will be displayed all the data with calculations for a particular day, as well as return to the previous menu.
 
-![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695911418/apple-sales/week_ol7zkr.jpg)
+![menu](https://res.cloudinary.com/dsmrhqdnv/image/upload/v1695912647/apple-sales/day_v2oc5g.jpg)
