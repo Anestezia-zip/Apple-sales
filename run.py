@@ -221,12 +221,12 @@ def get_full_monthly_report():
     The function retrieves the necessary data and metrics from other functions
     and displays them in a formatted table.
     """
+    table = tabulate(data, headers=all_data[0], tablefmt="simple")
+    print(table)
     total_sales = get_total_sales()
     get_average_check(total_sales, 30)
     get_maximum_sales()
     get_minimum_sales()
-    table = tabulate(data, headers=all_data[0], tablefmt="simple")
-    print(table)
 
 
 def get_weekly_calculations(input_week):
